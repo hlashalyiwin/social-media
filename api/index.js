@@ -1,5 +1,10 @@
 require("dotenv").config();
 
+const dbUrl = process.env.DATABASE_URL;
+const jwtSecret = process.env.JWT_SECRET;
+console.log("DB:", dbUrl);
+console.log("JWT Secret:", jwtSecret);
+
 const express = require("express");
 const app = express();
 
