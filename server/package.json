@@ -10,21 +10,22 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.19.2",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
     "jsonwebtoken": "^9.0.2",
     "router": "^2.2.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.5.1",
     "nodemon": "^3.1.9",
-    "prisma": "^6.7.0"
+    "prisma": "^6.19.2"
   },
   "prisma": {
     "seed": "node prisma/seeds/main.js"
-  }
+  },
+  "type": "commonjs"
 }
