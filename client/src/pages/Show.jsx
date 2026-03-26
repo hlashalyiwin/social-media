@@ -11,11 +11,11 @@ import Post from "../components/Post";
 import Comment from "../components/Comment";
 import { useParams } from "react-router";
 import { useApp } from "../AppProvider";
-const API_URL = "http://localhost:8080";
+const { API_URL } = useApp();
 
 async function fetchPost(id) {
   const token = localStorage.getItem("token");
-  const response = await fetch(`http://localhost:8080/posts/${id}`, {
+  const response = await fetch(`${API_URL}/posts/${id}`, {
     headers: token
       ? {
           Authorization: `Bearer ${token}`,

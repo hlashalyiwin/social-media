@@ -9,7 +9,7 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-const API_URL = "https://social-api.onrender.com";
+const { API_URL } = useApp();
 
 export default function AddPost() {
   const navigate = useNavigate();

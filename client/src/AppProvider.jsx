@@ -17,12 +17,13 @@ export default function AppProvider() {
   const [mode, setMode] = useState("dark");
   const [openDrawer, setOpenDrawer] = useState(false);
   const [user, setUser] = useState(null);
-  const API_URL = "http://localhost:8080";
+
+  const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("http://localhost:8080/users/verify", {
+      fetch(`${API_URL}/users/verify`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Box, Button, OutlinedInput, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
-const API_URL = "http://localhost:8080";
+const { API_URL } = useApp();
 
 export default function Register() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export default function Register() {
   } = useForm();
 
   const onSubmit = (data) => {
-    const api = "http://localhost:8080/users/register";
+    const api = `${API_URL}/users/register`;
     fetch(api, {
       method: "POST",
       headers: {

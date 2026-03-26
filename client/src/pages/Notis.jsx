@@ -6,7 +6,7 @@ import {
   Divider,
   ListItemButton,
 } from "@mui/material";
-const API_URL = "http://localhost:8080";
+const { API_URL } = useApp();
 
 import {
   ChatBubble as CommentIcon,
@@ -24,7 +24,7 @@ export default function Notis() {
   const { data: notis } = useQuery({
     queryKey: ["notis"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:8080/notis", {
+      const res = await fetch(`${API_URL}/notis`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -35,7 +35,7 @@ export default function Notis() {
 
   const { mutate: readNoti } = useMutation({
     mutationFn: async (id) => {
-      const res = await fetch(`http://localhost:8080"/notis/${id}`, {
+      const res = await fetch(`${API_URL}/notis/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

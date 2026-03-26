@@ -2,10 +2,10 @@ import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Post from "../components/Post";
 
-const API_URL = "https://social-api.onrender.com";
+const { API_URL } = useApp();
 
 async function fetchPosts() {
-  const api = "https://social-api.onrender.com/posts";
+  const api = `${API_URL}/posts`;
   const res = await fetch(api);
 
   return res.json();

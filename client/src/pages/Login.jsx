@@ -3,7 +3,7 @@ import { Box, Button, OutlinedInput, Typography, Alert } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { useApp } from "../AppProvider";
-const API_URL = "http://localhost:8080";
+const { API_URL } = useApp();
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
-    const api = "http://localhost:8080/users/login";
+    const api = `${API_URL}/users/login`;
     fetch(api, {
       method: "POST",
       headers: {

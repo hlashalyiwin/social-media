@@ -1,7 +1,9 @@
 import { Box, Typography, Avatar, Button, Stack } from "@mui/material";
 import { useApp } from "../AppProvider";
 import { useNavigate } from "react-router";
-const API_URL = "http://localhost:8080";
+
+const { API_URL } = useApp();
+
 export default function Profile() {
   const { user, setUser } = useApp();
   const navigate = useNavigate();
