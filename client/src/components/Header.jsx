@@ -20,6 +20,7 @@ import { useApp } from "../AppProvider";
 import { useLocation, useNavigate } from "react-router";
 
 import { useQuery } from "@tanstack/react-query";
+const API_URL = "https://social-api.onrender.com";
 
 export default function Header() {
   const { mode, setMode, setOpenDrawer, user } = useApp();
@@ -29,7 +30,7 @@ export default function Header() {
   const { data: notis } = useQuery({
     queryKey: ["notis"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:8080/notis", {
+      const res = await fetch("API_URL/notis", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

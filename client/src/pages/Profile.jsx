@@ -1,13 +1,13 @@
 import { Box, Typography, Avatar, Button, Stack } from "@mui/material";
 import { useApp } from "../AppProvider";
 import { useNavigate } from "react-router";
-
+const API_URL = "http://localhost:8080";
 export default function Profile() {
   const { user, setUser } = useApp();
   const navigate = useNavigate();
   if (!user) {
-	navigate("/login");
-	return null; // Prevent rendering if user is not logged in
+    navigate("/login");
+    return null; // Prevent rendering if user is not logged in
   }
   return (
     <Box

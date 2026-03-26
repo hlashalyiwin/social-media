@@ -10,61 +10,63 @@ const AppContext = createContext();
 const queryClient = new QueryClient();
 
 export const useApp = () => {
-	return useContext(AppContext);
+  return useContext(AppContext);
 };
 
 export default function AppProvider() {
-	const [mode, setMode] = useState("dark");
-	const [openDrawer, setOpenDrawer] = useState(false);
-	const [user, setUser] = useState(null);
+  const [mode, setMode] = useState("dark");
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [user, setUser] = useState(null);
+  const API_URL = "http://localhost:8080";
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if(token) {
-            fetch("http://localhost:8080/users/verify", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-                .then(response =>
-                    response
-                        .json()
-                        .then(data => ({ status: response.status, body: data }))
-                )
-                .then(({ status, body }) => {
-                    if(status === 200) {
-                        setUser(body);
-                    } else {
-                        localStorage.removeItem("token");
-                    }
-                });
-        }
-    }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetch("http://localhost:8080/users/verify", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) =>
+          response
+            .json()
+            .then((data) => ({ status: response.status, body: data })),
+        )
+        .then(({ status, body }) => {
+          if (status === 200) {
+            setUser(body);
+          } else {
+            localStorage.removeItem("token");
+          }
+        });
+    }
+  }, []);
 
-	const theme = useMemo(() => {
-		return createTheme({
-			palette: {
-				mode,
-			},
-		});
-	}, [mode]);
+  const theme = useMemo(() => {
+    return createTheme({
+      palette: {
+        mode,
+      },
+    });
+  }, [mode]);
 
-	return (
-		<ThemeProvider theme={theme}>
-			<QueryClientProvider client={queryClient}>
-				<AppContext.Provider
-					value={{
-						mode,
-						setMode,
-						openDrawer,
-						setOpenDrawer,
-						user,
-						setUser,
-					}}>
-					<CssBaseline />
-					<AppRouter />
-				</AppContext.Provider>
-			</QueryClientProvider>
-		</ThemeProvider>
-	);
+  return (
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <AppContext.Provider
+          value={{
+            mode,
+            setMode,
+            openDrawer,
+            setOpenDrawer,
+            user,
+            setUser,
+          }}
+        >
+          <CssBaseline />
+          <AppRouter />
+        </AppContext.Provider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
 }

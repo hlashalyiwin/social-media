@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const dbUrl = process.env.DATABASE_URL;
 const jwtSecret = process.env.JWT_SECRET;
+
 console.log("DB:", dbUrl);
 console.log("JWT Secret:", jwtSecret);
 
@@ -27,6 +28,8 @@ app.use("/comments", commentsRouter);
 const { notisRouter } = require("./routes/notis");
 app.use("/notis", notisRouter);
 
-app.listen(8080, () => {
-  console.log("Api running at 8080...");
-});
+module.exports = app;
+
+// app.listen(8080, () => {
+//   console.log("Api running at 8080...");
+// });
