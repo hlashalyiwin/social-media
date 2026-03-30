@@ -6,18 +6,17 @@ import {
   Divider,
   ListItemButton,
 } from "@mui/material";
-const { API_URL } = useApp();
-
+import { useApp } from "../AppContext";
 import {
   ChatBubble as CommentIcon,
   Favorite as LikeIcon,
 } from "@mui/icons-material";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
 import { useNavigate } from "react-router";
 
 export default function Notis() {
+  const { API_URL } = useApp();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 

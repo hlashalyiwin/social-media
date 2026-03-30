@@ -1,10 +1,12 @@
 require("dotenv").config();
 
+const PORT = process.env.PORT || 8080;
+
 const dbUrl = process.env.DATABASE_URL;
 const jwtSecret = process.env.JWT_SECRET;
 
-console.log("DB:", dbUrl);
-console.log("JWT Secret:", jwtSecret);
+console.log("DB Connected");
+console.log("JWT Secret is set");
 
 const express = require("express");
 const app = express();
@@ -28,8 +30,12 @@ app.use("/comments", commentsRouter);
 const { notisRouter } = require("./routes/notis");
 app.use("/notis", notisRouter);
 
-module.exports = app;
+app.get("/", (req, res) => {
+  res.json({ message: "Social Media API is running!" });
+});
 
-// app.listen(8080, () => {
-//   console.log("Api running at 8080...");
-// });
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+module.exports = app;

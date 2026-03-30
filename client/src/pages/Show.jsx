@@ -10,12 +10,11 @@ import { useForm } from "react-hook-form";
 import Post from "../components/Post";
 import Comment from "../components/Comment";
 import { useParams } from "react-router";
-import { useApp } from "../AppProvider";
-const { API_URL } = useApp();
+import { useApp } from "../AppContext";
 
-async function fetchPost(id) {
+async function fetchPost(id, api_url) {
   const token = localStorage.getItem("token");
-  const response = await fetch(`${API_URL}/posts/${id}`, {
+  const response = await fetch(`${api_url}/posts/${id}`, {
     headers: token
       ? {
           Authorization: `Bearer ${token}`,
@@ -32,7 +31,7 @@ async function fetchPost(id) {
 
 export default function Show() {
   const { id } = useParams();
-  const { user } = useApp();
+  const { user, API_URL } = useApp();
   const queryClient = useQueryClient();
   const {
     register,
@@ -47,13 +46,14 @@ export default function Show() {
     isLoading,
   } = useQuery({
     queryKey: ["post", id],
-    queryFn: () => fetchPost(id),
+    queryFn: () => fetchPost(id, API_URL),
+    enabled: !!API_URL,
   });
 
   const commentMutation = useMutation({
     mutationFn: async (data) => {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:8080/comments`, {
+      const response = await fetch(`${API_URL}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,14 +82,15 @@ export default function Show() {
       console.error("Error creating comment:", error);
     }
   };
-
-  if (error) {
-    return <Typography>Error: {error.message}</Typography>;
-  }
-
-  if (isLoading) {
-    return <Typography>Loading...</Typography>;
-  }
+  if (isLoading)
+    return (
+      <Typography sx={{ textAlign: "center", mt: 4 }}>
+        Loading post...
+      </Typography>
+    );
+  if (error)
+    return <Typography color="error">Error: {error.message}</Typography>;
+  if (!post) return <Typography>No post found.</Typography>;
 
   return (
     <Box>

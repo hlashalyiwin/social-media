@@ -9,18 +9,17 @@ import {
 import { grey } from "@mui/material/colors";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Delete as DeleteIcon } from "@mui/icons-material";
-import { useApp } from "../AppProvider";
+import { useApp } from "../AppContext";
 import { formatRelative } from "date-fns";
-const API_URL = "https://social-api.onrender.com";
 
 export default function Comment({ comment }) {
-  const { user } = useApp();
+  const { user, API_URL } = useApp();
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
       const token = localStorage.getItem("token");
-      const response = await fetch(`API_URL/comments/${id}`, {
+      const response = await fetch(`${API_URL}/comments/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

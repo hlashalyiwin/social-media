@@ -10,7 +10,7 @@ import {
   Divider, // Add Divider import
   useTheme, // Add useTheme import
 } from "@mui/material";
-import { useApp } from "../AppProvider";
+import { useApp } from "../AppContext";
 import { useNavigate } from "react-router";
 
 export default function AppDrawer() {

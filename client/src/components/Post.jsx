@@ -20,18 +20,17 @@ import { green } from "@mui/material/colors";
 import { formatRelative } from "date-fns";
 import { useNavigate } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useApp } from "../AppProvider";
-const API_URL = "https://social-api.onrender.com";
+import { useApp } from "../AppContext";
 
 export default function Post({ post }) {
   const navigate = useNavigate();
-  const { user } = useApp();
   const queryClient = useQueryClient();
+  const { user, API_URL } = useApp();
 
   const deleteMutation = useMutation({
     mutationFn: async () => {
       const token = localStorage.getItem("token");
-      const response = await fetch(`API_URL/posts/${post.id}`, {
+      const response = await fetch(`${API_URL}/posts/${post.id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -49,7 +48,7 @@ export default function Post({ post }) {
   const likeMutation = useMutation({
     mutationFn: async () => {
       const token = localStorage.getItem("token");
-      const response = await fetch(`API_URL/posts/${post.id}/like`, {
+      const response = await fetch(`${API_URL}/posts/${post.id}/like`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -69,7 +68,7 @@ export default function Post({ post }) {
   const unlikeMutation = useMutation({
     mutationFn: async () => {
       const token = localStorage.getItem("token");
-      const response = await fetch(`API_URL/posts/${post.id}/unlike`, {
+      const response = await fetch(`${API_URL}/posts/${post.id}/unlike`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -85,6 +84,9 @@ export default function Post({ post }) {
       queryClient.invalidateQueries({ queryKey: ["post"] });
     },
   });
+
+  const isLiked =
+    user && post.postLikes?.some((like) => like.userId === user.id);
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this post?")) {
@@ -111,9 +113,6 @@ export default function Post({ post }) {
       console.error("Error unliking post:", error);
     }
   };
-
-  const isLiked =
-    user && post.postLikes.some((like) => like.userId === user.id);
 
   return (
     <Card sx={{ mb: 2 }}>

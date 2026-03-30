@@ -9,9 +9,12 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-const { API_URL } = useApp();
+
+import { useApp } from "../AppContext";
 
 export default function AddPost() {
+  const { API_URL } = useApp();
+
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const {
@@ -24,7 +27,7 @@ export default function AddPost() {
   const mutation = useMutation({
     mutationFn: async (data) => {
       const token = localStorage.getItem("token");
-      const response = await fetch("API_URL/posts", {
+      const response = await fetch(`${API_URL}/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

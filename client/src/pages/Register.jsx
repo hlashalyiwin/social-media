@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Box, Button, OutlinedInput, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
-const { API_URL } = useApp();
+import { useApp } from "../AppContext";
 
 export default function Register() {
   const navigate = useNavigate();
+  const { API_URL } = useApp();
 
   const {
     register,

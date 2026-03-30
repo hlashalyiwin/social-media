@@ -2,14 +2,12 @@ import { useForm } from "react-hook-form";
 import { Box, Button, OutlinedInput, Typography, Alert } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useState } from "react";
-import { useApp } from "../AppProvider";
-const { API_URL } = useApp();
+import { useApp } from "../AppContext";
 
 export default function Login() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
-
-  const { setUser } = useApp();
+  const { setUser, API_URL } = useApp();
 
   const {
     register,

@@ -16,21 +16,19 @@ import {
   Notifications as NotificationsIcon,
 } from "@mui/icons-material";
 
-import { useApp } from "../AppProvider";
+import { useApp } from "../AppContext";
 import { useLocation, useNavigate } from "react-router";
-
 import { useQuery } from "@tanstack/react-query";
-const API_URL = "https://social-api.onrender.com";
 
 export default function Header() {
-  const { mode, setMode, setOpenDrawer, user } = useApp();
+  const { mode, setMode, setOpenDrawer, user, API_URL } = useApp();
   const location = useLocation();
   const navigate = useNavigate();
 
   const { data: notis } = useQuery({
     queryKey: ["notis"],
     queryFn: async () => {
-      const res = await fetch("API_URL/notis", {
+      const res = await fetch(`${API_URL}/notis`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

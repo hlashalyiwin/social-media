@@ -1,8 +1,8 @@
 import { Box, Typography, Avatar, Button, Stack } from "@mui/material";
-import { useApp } from "../AppProvider";
+import { useApp } from "../AppContext";
 import { useNavigate } from "react-router";
-
-const { API_URL } = useApp();
+//import { useApp } from "../AppContext";
+//const { API_URL } = useApp();
 
 export default function Profile() {
   const { user, setUser } = useApp();
