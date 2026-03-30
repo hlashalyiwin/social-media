@@ -14,8 +14,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "https://social-media-frontend-gold.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: process.env.FRONTEND_URL, // Env ထဲက URL ကို ယူသုံးမယ်
     credentials: true,
   }),
 );

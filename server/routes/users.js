@@ -27,7 +27,6 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // Check if username already exists
     const existingUser = await prisma.user.findUnique({
       where: { username },
     });
@@ -48,6 +47,7 @@ router.post("/register", async (req, res) => {
     res.status(201).json(userWithoutPassword);
   } catch (error) {
     console.error("Registration error:", error);
+    res.status(500).json({ message: error.message });
 
     // Handle Prisma unique constraint error
     if (error.code === "P2002" && error.meta?.target?.includes("username")) {
