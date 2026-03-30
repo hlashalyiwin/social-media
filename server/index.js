@@ -12,7 +12,14 @@ const express = require("express");
 const app = express();
 
 const cors = require("cors");
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "https://social-media-frontend-gold.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  }),
+);
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
